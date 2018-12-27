@@ -50,9 +50,15 @@ def not_bad(s):
 # e.g. 'abcde', the front half is 'abc', the back half 'de'.
 # Given 2 strings, a and b, return a string of the form
 #  a-front + b-front + a-back + b-back
+from functools import reduce
 def front_back(a, b):
-    # +++your code here+++
-    return
+    a_len = reduce(lambda x, y: x+y, divmod(len(a), 2))
+    b_len = reduce(lambda x, y: x+y, divmod(len(b), 2))
+    a_front = a[:a_len]
+    a_back  = a[a_len:]
+    b_front = b[:b_len]
+    b_back  = b[b_len:]
+    return ''.join((a_front, b_front, a_back + b_back))
 
 
 # Simple provided test() function used in main() to print
