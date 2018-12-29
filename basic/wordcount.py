@@ -38,7 +38,33 @@ print_words() and print_top().
 """
 
 import sys
+def print_words(filename, *args):
+    with open(filename) as f:
+        words = f.read().lower().split()
 
+    dict_count = {}
+    for w in words:
+        dict_count[w] = words.count(w)
+
+    #words = list(dict_count.items())
+    #words.sort(key=lambda t: t[-1])
+    #words.reverse()
+    words = sorted(dict_count.items(), key=lambda t: t[-1], reverse=True)
+
+    if 'top' not in args:
+        for w, count in words:
+            #print(w, count)
+            print("A palavra: '%s' apareceu: %s vezes no texto." % (w, count))
+    else:
+        return(words)
+
+def print_top(filename):
+    words = print_words(filename, 'top')
+    total = 20 if len(words) >= 20 else len(words)
+    for x in range(0, total):
+        w, count = tuple(words[x])
+        print("A palavra: '%s' aparaceu: %s vezes no texto, "
+              "e esta em %so lugar" % (w, count, x+1))
 
 # +++your code here+++
 # Define print_words(filename) and print_top(filename) functions.
